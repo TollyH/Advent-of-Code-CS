@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode
+﻿namespace AdventOfCode.Yr2022
 {
     public static class D01
     {
