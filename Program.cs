@@ -2,7 +2,7 @@
 {
     public static class Program
     {
-        public static readonly int DaysToRun = 2;
+        public static readonly int DaysToRun = Directory.GetFiles(Environment.CurrentDirectory, "*??.txt").Length;
 
         public static void Main(string[] args)
         {
