@@ -8,7 +8,7 @@
             for (int i = 3; i < data.Length; i++)
             {
                 string slice = data[(i - 3)..(i + 1)];
-                if (slice.Length == new HashSet<char>(slice).Count)
+                if (slice.Length == slice.Distinct().Count())
                 {
                     return i + 1;
                 }
@@ -22,7 +22,7 @@
             for (int i = 13; i < data.Length; i++)
             {
                 string slice = data[(i - 13)..(i + 1)];
-                if (slice.Length == new HashSet<char>(slice).Count)
+                if (slice.Length == slice.Distinct().Count())
                 {
                     return i + 1;
                 }
