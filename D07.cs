@@ -100,7 +100,11 @@
                 {
                     if (line.StartsWith("dir"))
                     {
-                        currentDir.Directories.Add(new Directory(line.Split(" ")[1], currentDir));
+                        string name = line.Split(" ")[1];
+                        if (!currentDir.Directories.Where(d => d.Name == name).Any())
+                        {
+                            currentDir.Directories.Add(new Directory(name, currentDir));
+                        }
                     }
                     else
                     {
@@ -155,7 +159,11 @@
                 {
                     if (line.StartsWith("dir"))
                     {
-                        currentDir.Directories.Add(new Directory(line.Split(" ")[1], currentDir));
+                        string name = line.Split(" ")[1];
+                        if (!currentDir.Directories.Where(d => d.Name == name).Any())
+                        {
+                            currentDir.Directories.Add(new Directory(name, currentDir));
+                        }
                     }
                     else
                     {
