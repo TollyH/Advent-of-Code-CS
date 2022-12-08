@@ -18,35 +18,43 @@
 
             for (int y = 0; y < input.Length; y++)
             {
+                int maxInRow = -1;
                 for (int x = 0; x < input[0].Length; x++)
                 {
-                    if (trees[y][..x].Where(t => t < trees[y][x]).Count() == trees[y][..x].Length)
+                    if (trees[y][x] > maxInRow)
                     {
                         _ = visibleTrees.Add((x, y));
+                        maxInRow = trees[y][x];
                     }
                 }
+                maxInRow = -1;
                 for (int x = input[0].Length - 1; x >= 0; x--)
                 {
-                    if (trees[y][(x + 1)..].Where(t => t < trees[y][x]).Count() == trees[y][(x + 1)..].Length)
+                    if (trees[y][x] > maxInRow)
                     {
                         _ = visibleTrees.Add((x, y));
+                        maxInRow = trees[y][x];
                     }
                 }
             }
             for (int x = 0; x < input[0].Length; x++)
             {
+                int maxInCol = -1;
                 for (int y = 0; y < input.Length; y++)
                 {
-                    if (trees[..y].Select(t => t[x]).Where(t => t < trees[y][x]).Count() == trees[..y].Select(t => t[x]).Count())
+                    if (trees[y][x] > maxInCol)
                     {
                         _ = visibleTrees.Add((x, y));
+                        maxInCol = trees[y][x];
                     }
                 }
+                maxInCol = -1;
                 for (int y = input.Length - 1; y >= 0; y--)
                 {
-                    if (trees[(y + 1)..].Select(t => t[x]).Where(t => t < trees[y][x]).Count() == trees[(y + 1)..].Select(t => t[x]).Count())
+                    if (trees[y][x] > maxInCol)
                     {
                         _ = visibleTrees.Add((x, y));
+                        maxInCol = trees[y][x];
                     }
                 }
             }
