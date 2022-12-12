@@ -94,118 +94,87 @@ namespace AdventOfCode.Yr2022
         public static int PartTwo(string[] input)
         {
             char[,] map = new char[input[0].Length, input.Length];
-            List<Point> startPoints = new();
+            Dictionary<Point, Point?> unvisited = new();
+            Dictionary<Point, Point?> visited = new();
+            Queue<Point> queue = new();
             Point end = new();
-            int minPathLength = int.MaxValue;
-
             for (int y = 0; y < input.Length; y++)
             {
                 for (int x = 0; x < input[0].Length; x++)
                 {
-                    if (input[y][x] is 'S' or 'a')
+                    if (input[y][x] == 'S')
                     {
-                        Point start = new(x, y);
                         map[x, y] = 'a';
-                        startPoints.Add(start);
+                        unvisited[new Point(x, y)] = null;
                     }
                     else if (input[y][x] == 'E')
                     {
                         end.X = x;
                         end.Y = y;
                         map[x, y] = 'z';
+                        visited[new Point(x, y)] = null;
+                        queue.Enqueue(new Point(x, y));
                     }
                     else
                     {
                         map[x, y] = input[y][x];
+                        unvisited[new Point(x, y)] = null;
                     }
                 }
             }
 
-            foreach (Point start in startPoints)
+            Point start = new();
+            while (unvisited.Count > 0)
             {
-                Dictionary<Point, Point?> unvisited = new();
-                Dictionary<Point, Point?> visited = new();
-                Queue<Point> queue = new();
-                for (int y = 0; y < input.Length; y++)
-                {
-                    for (int x = 0; x < input[0].Length; x++)
-                    {
-                        Point pt = new(x, y);
-                        if (pt == start)
-                        {
-                            visited[start] = null;
-                            queue.Enqueue(start);
-                        }
-                        else
-                        {
-                            unvisited[pt] = null;
-                        }
-                    }
-                }
-                bool found = true;
-                while (unvisited.Count > 0)
-                {
-                    if (!queue.TryDequeue(out Point coord))
-                    {
-                        found = false;
-                        break;
-                    }
+                Point coord = queue.Dequeue();
 
-                    if (coord == end)
-                    {
-                        break;
-                    }
-
-                    List<Point> adjacentCoords = new();
-                    if (coord.X >= 1)
-                    {
-                        adjacentCoords.Add(new Point(coord.X - 1, coord.Y));
-                    }
-                    if (coord.X < map.GetLength(0) - 1)
-                    {
-                        adjacentCoords.Add(new Point(coord.X + 1, coord.Y));
-                    }
-                    if (coord.Y >= 1)
-                    {
-                        adjacentCoords.Add(new Point(coord.X, coord.Y - 1));
-                    }
-                    if (coord.Y < map.GetLength(1) - 1)
-                    {
-                        adjacentCoords.Add(new Point(coord.X, coord.Y + 1));
-                    }
-
-                    foreach (Point adj in adjacentCoords)
-                    {
-                        if (visited.ContainsKey(adj))
-                        {
-                            continue;
-                        }
-                        if (map[adj.X, adj.Y] - map[coord.X, coord.Y] <= 1)
-                        {
-                            visited[adj] = coord;
-                            _ = unvisited.Remove(adj);
-                            queue.Enqueue(adj);
-                        }
-                    }
-                }
-                if (!found)
+                if (map[coord.X, coord.Y] == 'a')
                 {
-                    continue;
+                    start = coord;
+                    break;
                 }
 
-                List<Point> finalPath = new();
-                Point? current = end;
-                while (current is not null)
+                List<Point> adjacentCoords = new();
+                if (coord.X >= 1)
                 {
-                    finalPath.Add(current.Value);
-                    current = visited[current.Value];
+                    adjacentCoords.Add(new Point(coord.X - 1, coord.Y));
                 }
-                if (finalPath.Count - 1 < minPathLength)
+                if (coord.X < map.GetLength(0) - 1)
                 {
-                    minPathLength = finalPath.Count - 1;
+                    adjacentCoords.Add(new Point(coord.X + 1, coord.Y));
+                }
+                if (coord.Y >= 1)
+                {
+                    adjacentCoords.Add(new Point(coord.X, coord.Y - 1));
+                }
+                if (coord.Y < map.GetLength(1) - 1)
+                {
+                    adjacentCoords.Add(new Point(coord.X, coord.Y + 1));
+                }
+
+                foreach (Point adj in adjacentCoords)
+                {
+                    if (visited.ContainsKey(adj))
+                    {
+                        continue;
+                    }
+                    if (map[adj.X, adj.Y] - map[coord.X, coord.Y] >= -1)
+                    {
+                        visited[adj] = coord;
+                        _ = unvisited.Remove(adj);
+                        queue.Enqueue(adj);
+                    }
                 }
             }
-            return minPathLength;
+
+            List<Point> finalPath = new();
+            Point? current = start;
+            while (current is not null)
+            {
+                finalPath.Add(current.Value);
+                current = visited[current.Value];
+            }
+            return finalPath.Count - 1;
         }
     }
 }
