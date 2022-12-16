@@ -223,24 +223,37 @@ namespace AdventOfCode.Yr2022
                 orderScores.Add((order, pressure));
             }
 
-            int best = 0;
-            for (int i = 0; i < orderScores.Count; i++)
+            int[] best = new int[Environment.ProcessorCount];
+            int perThread = orderScores.Count / Environment.ProcessorCount;
+            int completedProcessors = 0;
+            for (int processor = 0; processor < Environment.ProcessorCount; processor++)
             {
-                for (int e = i + 1; e < orderScores.Count; e++)
+                int thisProcessor = processor;
+                Thread processThread = new(() =>
                 {
-                    (List<string> iOrder, int iScore) = orderScores[i];
-                    (List<string> eOrder, int eScore) = orderScores[e];
-                    if (!iOrder.Intersect(eOrder).Any())
+                    for (int i = perThread * thisProcessor; i < perThread * (thisProcessor + 1); i++)
                     {
-                        if (iScore + eScore > best)
+                        for (int e = i + 1; e < orderScores.Count; e++)
                         {
-                            best = iScore + eScore;
+                            (List<string> iOrder, int iScore) = orderScores[i];
+                            (List<string> eOrder, int eScore) = orderScores[e];
+                            if (!iOrder.Intersect(eOrder).Any())
+                            {
+                                if (iScore + eScore > best[thisProcessor])
+                                {
+                                    best[thisProcessor] = iScore + eScore;
+                                }
+                            }
                         }
                     }
-                }
+                    completedProcessors++;
+                });
+                processThread.Start();
             }
 
-            return best;
+            while (completedProcessors != Environment.ProcessorCount) { }
+
+            return best.Max();
         }
     }
 }
