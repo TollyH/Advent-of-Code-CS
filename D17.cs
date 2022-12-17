@@ -162,7 +162,7 @@ namespace AdventOfCode.Yr2022
             Dictionary<int, int> completedAtRow = new();
             Dictionary<int, int> rowsAtBlockDrop = new();
             int completedRocks = 0;
-            while (completedRocks < 10000)
+            while (completedRocks < 5000)
             {
                 int x = 2;
                 int y = chamber.Count + 3;
