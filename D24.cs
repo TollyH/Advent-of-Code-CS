@@ -61,6 +61,10 @@ namespace AdventOfCode.Yr2022
                 {
                     continue;
                 }
+                if (visited.Any() && currentState.Round > visited.First().Round)
+                {
+                    visited.Clear();
+                }
                 _ = visited.Add(currentState);
 
                 if (blizzardStates.Count <= currentState.Round + 1)
@@ -149,6 +153,10 @@ namespace AdventOfCode.Yr2022
                 if (visited.Contains(currentState))
                 {
                     continue;
+                }
+                if (visited.Any() && currentState.Round > visited.First().Round)
+                {
+                    visited.Clear();
                 }
                 _ = visited.Add(currentState);
 
