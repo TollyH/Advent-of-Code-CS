@@ -29,8 +29,7 @@
 
             string snafu = "";
             long remaining = sum;
-            bool done = false;
-            while (!done)
+            while (remaining != 0)
             {
                 long remainingMod = remaining % 5;
                 if (remainingMod == 0)
@@ -61,11 +60,6 @@
                     snafu = "-" + snafu;
                     remaining += 1;
                     remaining /= 5;
-                }
-
-                if (remaining == 0)
-                {
-                    done = true;
                 }
             }
 
