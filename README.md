@@ -1,4 +1,4 @@
-# Advent of Code 2022
+# Advent of Code 2022/2023
 
 My solutions written in C# - they are not necessarily the optimal solutions, nor are they necessarily particularly well written, as long as they give the correct answer, they're good enough for me. I am solving every day using no non-standard libraries and with as minimal help as possible, but am not necessarily going for the fastest times.
 

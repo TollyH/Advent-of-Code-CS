@@ -5,85 +5,90 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>AdventOfCode.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <RootNamespace>AdventOfCode</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Update="input01.txt">
+	  <Folder Include="Yr2022\" />
+	  <None Update="Yr2022\input01.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="input02.txt">
+    <None Update="Yr2022\input02.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="input03.txt">
+    <None Update="Yr2022\input03.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="input04.txt">
+    <None Update="Yr2022\input04.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="input05.txt">
+    <None Update="Yr2022\input05.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="input06.txt">
+    <None Update="Yr2022\input06.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="input07.txt">
+    <None Update="Yr2022\input07.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="input08.txt">
+    <None Update="Yr2022\input08.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="input09.txt">
+    <None Update="Yr2022\input09.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="input10.txt">
+    <None Update="Yr2022\input10.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="input11.txt">
+    <None Update="Yr2022\input11.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="input12.txt">
+    <None Update="Yr2022\input12.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="input13.txt">
+    <None Update="Yr2022\input13.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="input14.txt">
+    <None Update="Yr2022\input14.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="input15.txt">
+    <None Update="Yr2022\input15.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="input16.txt">
+    <None Update="Yr2022\input16.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="input17.txt">
+    <None Update="Yr2022\input17.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="input18.txt">
+    <None Update="Yr2022\input18.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="input19.txt">
+    <None Update="Yr2022\input19.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="input20.txt">
+    <None Update="Yr2022\input20.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="input21.txt">
+    <None Update="Yr2022\input21.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="input22.txt">
+    <None Update="Yr2022\input22.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="input23.txt">
+    <None Update="Yr2022\input23.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="input24.txt">
+    <None Update="Yr2022\input24.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="input25.txt">
+    <None Update="Yr2022\input25.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Yr2023\" />
   </ItemGroup>
 
 </Project>
