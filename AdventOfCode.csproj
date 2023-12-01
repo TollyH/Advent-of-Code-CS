@@ -160,10 +160,4 @@
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Yr2022\" />
-    <Folder Include="Yr2023\" />
-  </ItemGroup>
-
 </Project>
