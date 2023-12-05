@@ -46,6 +46,10 @@
                 set => backingDictionary[key] = value;
             }
 
+            /// <summary>
+            /// Gets a list of ranges representing the mapped values of the input ranges.
+            /// Accounts for default values where values in the input ranges are unmapped.
+            /// </summary>
             public List<Range> GetMatchingRanges(List<Range> ranges)
             {
                 List<Range> result = new();
@@ -54,6 +58,7 @@
                     List<KeyValuePair<Range, Range>> matching = backingDictionary.Where(kv => kv.Key.Overlaps(range)).ToList();
                     for (int i = 0; i < matching.Count; i++)
                     {
+                        // Make sure matching ranges only consider the portion that is actually overlapping with the range in the parameter
                         KeyValuePair<Range, Range> overlap = matching[i];
                         Range limitedKey = new(Math.Max(overlap.Key.Start, range.Start), Math.Min(overlap.Key.End, range.End));
                         long startCutoff = limitedKey.Start - overlap.Key.Start;
@@ -68,6 +73,8 @@
                     }
                     else
                     {
+                        // Fill in areas where nothing matched for that portion of the parameter range with the indices FROM the parameter range
+                        // as "source numbers that aren't mapped correspond to the same destination number"
                         for (int i = 0; i < matching.Count - 1; i++)
                         {
                             if (matching[i].Key.End < matching[i + 1].Key.Start)
