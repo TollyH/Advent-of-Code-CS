@@ -11,17 +11,10 @@
             for (int i = 0; i < times.Length; i++)
             {
                 int time = times[i];
-                int recordDistance = distances[i];
-                int numberWinning = 0;
-                for (int hold = 0; hold <= time; hold++)
-                {
-                    int raceDistance = (time - hold) * hold;
-                    if (raceDistance > recordDistance)
-                    {
-                        numberWinning++;
-                    }
-                }
-                product *= numberWinning;
+                int targetDistance = distances[i] + 1;
+                // Get difference between roots of quadratic equation "(-x^2) + (time)x - (targetDistance)"
+                product *= (int)(Math.Floor((-time - Math.Sqrt((time * time) - (4 * targetDistance))) / -2)
+                    - Math.Ceiling((-time + Math.Sqrt((time * time) - (4 * targetDistance))) / -2) + 1);
             }
             return product;
         }
@@ -29,18 +22,10 @@
         public static long PartTwo(string[] input)
         {
             long time = long.Parse(input[0].Split(':')[1].Replace(" ", ""));
-            long recordDistance = long.Parse(input[1].Split(':')[1].Replace(" ", ""));
-
-            long numberWinning = 0;
-            for (long hold = 0; hold <= time; hold++)
-            {
-                long raceDistance = (time - hold) * hold;
-                if (raceDistance > recordDistance)
-                {
-                    numberWinning++;
-                }
-            }
-            return numberWinning;
+            long targetDistance = long.Parse(input[1].Split(':')[1].Replace(" ", "")) + 1;
+            // Get difference between roots of quadratic equation "(-x^2) + (time)x - (targetDistance)"
+            return (long)(Math.Floor((-time - Math.Sqrt((time * time) - (4 * targetDistance))) / -2)
+                - Math.Ceiling((-time + Math.Sqrt((time * time) - (4 * targetDistance))) / -2) + 1);
         }
     }
 }
