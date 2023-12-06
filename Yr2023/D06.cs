@@ -13,8 +13,8 @@
                 int time = times[i];
                 int targetDistance = distances[i] + 1;
                 // Get difference between roots of quadratic equation "(-x^2) + (time)x - (targetDistance)"
-                product *= (int)(Math.Floor((-time - Math.Sqrt((time * time) - (4 * targetDistance))) / -2)
-                    - Math.Ceiling((-time + Math.Sqrt((time * time) - (4 * targetDistance))) / -2) + 1);
+                double sqrtPart = Math.Sqrt((time * time) - (4 * targetDistance));
+                product *= (int)(Math.Floor((-time - sqrtPart) / -2) - Math.Ceiling((-time + sqrtPart) / -2) + 1);
             }
             return product;
         }
@@ -24,8 +24,8 @@
             long time = long.Parse(input[0].Split(':')[1].Replace(" ", ""));
             long targetDistance = long.Parse(input[1].Split(':')[1].Replace(" ", "")) + 1;
             // Get difference between roots of quadratic equation "(-x^2) + (time)x - (targetDistance)"
-            return (long)(Math.Floor((-time - Math.Sqrt((time * time) - (4 * targetDistance))) / -2)
-                - Math.Ceiling((-time + Math.Sqrt((time * time) - (4 * targetDistance))) / -2) + 1);
+            double sqrtPart = Math.Sqrt((time * time) - (4 * targetDistance));
+            return (long)(Math.Floor((-time - sqrtPart) / -2) - Math.Ceiling((-time + sqrtPart) / -2) + 1);
         }
     }
 }
