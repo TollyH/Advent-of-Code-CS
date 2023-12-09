@@ -18,17 +18,12 @@
                     {
                         newSequence[i] = currentSequence[i + 1] - currentSequence[i];
                     }
+                    sum += currentSequence[^1];
                     if (newSequence.All(n => n == 0))
                     {
                         done = true;
                     }
                 }
-                int lastNumber = 0;
-                for (int i = sequences.Count - 2; i >= 0; i--)
-                {
-                    lastNumber += sequences[i][^1];
-                }
-                sum += lastNumber;
             }
             return sum;
         }
@@ -38,7 +33,7 @@
             int sum = 0;
             foreach (string line in input)
             {
-                List<int[]> sequences = new() { line.Split(' ').Select(int.Parse).ToArray() };
+                List<int[]> sequences = new() { line.Split(' ').Select(int.Parse).Reverse().ToArray() };
                 bool done = false;
                 while (!done)
                 {
@@ -49,17 +44,12 @@
                     {
                         newSequence[i] = currentSequence[i + 1] - currentSequence[i];
                     }
+                    sum += currentSequence[^1];
                     if (newSequence.All(n => n == 0))
                     {
                         done = true;
                     }
                 }
-                int lastNumber = 0;
-                for (int i = sequences.Count - 2; i >= 0; i--)
-                {
-                    lastNumber = sequences[i][0] - lastNumber;
-                }
-                sum += lastNumber;
             }
             return sum;
         }
