@@ -78,15 +78,25 @@ namespace AdventOfCode.Yr2023
             }
 
             List<Point> galaxies = new();
+            int passedRows = 0;
             for (int y = 0; y < image.Count; y++)
             {
+                if (passedRows < expandedRows.Count && y >= expandedRows[passedRows])
+                {
+                    passedRows++;
+                }
+                int passedColumns = 0;
                 for (int x = 0; x < image[0].Count; x++)
                 {
+                    if (passedColumns < expandedColumns.Count && x >= expandedColumns[passedColumns])
+                    {
+                        passedColumns++;
+                    }
                     if (image[y][x])
                     {
                         galaxies.Add(new Point(
-                            x + (expandedColumns.Count(c => x > c) * (expansionFactor - 1)),
-                            y + (expandedRows.Count(r => y > r) * (expansionFactor - 1))));
+                            x + (passedColumns * (expansionFactor - 1)),
+                            y + (passedRows * (expansionFactor - 1))));
                     }
                 }
             }
