@@ -2,68 +2,6 @@
 {
     public static class D12
     {
-        private static int[] GetBrokenPattern(IEnumerable<char> record)
-        {
-            List<int> groups = new();
-            int i = 0;
-            foreach (char character in record)
-            {
-                switch (character)
-                {
-                    case '?' when i != 0:
-                    case '.' when i != 0:
-                        groups.Add(i);
-                        i = 0;
-                        break;
-                    case '#':
-                        i++;
-                        break;
-                }
-            }
-            if (i != 0)
-            {
-                groups.Add(i);
-            }
-            return groups.ToArray();
-        }
-
-        public static int PartOne(string[] input)
-        {
-            List<char[]> springRecords = new();
-            List<int[]> springsBroken = new();
-
-            foreach (string line in input)
-            {
-                string[] components = line.Split(' ');
-                springRecords.Add(components[0].ToCharArray());
-                springsBroken.Add(components[1].Split(',').Select(int.Parse).ToArray());
-            }
-
-            int sum = 0;
-            for (int i = 0; i < springRecords.Count; i++)
-            {
-                char[] springRow = springRecords[i];
-                int[] brokenPattern = springsBroken[i];
-                int[] unknownIndices = Enumerable.Range(0, springRow.Length).Where(j => springRow[j] == '?').ToArray();
-                int arrangements = 0;
-                int combinations = (int)Math.Pow(2, unknownIndices.Length);
-                for (int j = 0; j < combinations; j++)
-                {
-                    string binaryJ = Convert.ToString(j, 2).PadLeft(unknownIndices.Length, '0');
-                    for (int k = 0; k < binaryJ.Length; k++)
-                    {
-                        springRow[unknownIndices[k]] = binaryJ[k] == '1' ? '#' : '.';
-                    }
-                    if (brokenPattern.SequenceEqual(GetBrokenPattern(springRow)))
-                    {
-                        arrangements++;
-                    }
-                }
-                sum += arrangements;
-            }
-            return sum;
-        }
-
         private static readonly Dictionary<(string, int, int), long> cache = new();
         private static long GetPossibleCombinations(string springRow, int groupSize, int[] brokenPattern)
         {
@@ -114,6 +52,29 @@
             }
             cache[(springRow, groupSize, brokenPattern.Length)] = arrangements;
             return arrangements;
+        }
+
+        public static long PartOne(string[] input)
+        {
+            List<string> springRecords = new();
+            List<int[]> springsBroken = new();
+
+            foreach (string line in input)
+            {
+                string[] components = line.Split(' ');
+                springRecords.Add(components[0]);
+                springsBroken.Add(components[1].Split(',').Select(int.Parse).ToArray());
+            }
+
+            long sum = 0;
+            for (int i = 0; i < springRecords.Count; i++)
+            {
+                string springRow = springRecords[i];
+                int[] brokenPattern = springsBroken[i];
+                sum += GetPossibleCombinations(springRow, 0, brokenPattern);
+                cache.Clear();
+            }
+            return sum;
         }
 
         public static long PartTwo(string[] input)
