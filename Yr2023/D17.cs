@@ -32,6 +32,11 @@ namespace AdventOfCode.Yr2023
                 Direction = direction;
                 StraightLineLength = straightLineLength;
             }
+
+            public override int GetHashCode()
+            {
+                return HashCode.Combine(Position.GetHashCode(), Direction.GetHashCode(), StraightLineLength);
+            }
         }
 
         public static int PartOne(string[] input)
