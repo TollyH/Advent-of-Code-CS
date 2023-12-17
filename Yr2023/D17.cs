@@ -43,7 +43,6 @@ namespace AdventOfCode.Yr2023
             int height = input.Length;
             Point target = new(width - 1, height - 1);
 
-            Dictionary<Point, int> minHeatLosses = new();
             Dictionary<VisitEntry, int> visited = new();
             int[,] city = new int[width, height];
             for (int y = 0; y < height; y++)
@@ -52,16 +51,21 @@ namespace AdventOfCode.Yr2023
                 for (int x = 0; x < width; x++)
                 {
                     city[x, y] = line[x] - '0';
-                    Point thisPoint = new(x, y);
-                    minHeatLosses[thisPoint] = int.MaxValue;
                 }
             }
 
             PriorityQueue<PathPoint, int> searchQueue = new();
             searchQueue.Enqueue(new PathPoint(new Point(0, 0), 0, null), 0);
 
+            int finalHeatLoss = 0;
             while (searchQueue.TryDequeue(out PathPoint? pt, out int heatLoss))
             {
+                if (pt.Position == target)
+                {
+                    finalHeatLoss = heatLoss;
+                    break;
+                }
+
                 PathPoint? lastPoint = pt.Previous;
                 Point direction = new(pt.Position.X - lastPoint?.Position.X ?? 0, pt.Position.Y - lastPoint?.Position.Y ?? 0);
 
@@ -81,10 +85,6 @@ namespace AdventOfCode.Yr2023
                         {
                             PathPoint newPathPoint = new(newPoint, newStraight, pt);
                             searchQueue.Enqueue(newPathPoint, newHeatLoss);
-                            if (newHeatLoss < minHeatLosses[newPoint])
-                            {
-                                minHeatLosses[newPoint] = newHeatLoss;
-                            }
                             visited[visit] = newHeatLoss;
                         }
                     }
@@ -100,10 +100,6 @@ namespace AdventOfCode.Yr2023
                     {
                         PathPoint newPathPoint = new(newPoint, 0, pt);
                         searchQueue.Enqueue(newPathPoint, newHeatLoss);
-                        if (newHeatLoss < minHeatLosses[newPoint])
-                        {
-                            minHeatLosses[newPoint] = newHeatLoss;
-                        }
                         visited[visit] = newHeatLoss;
                     }
                 }
@@ -118,16 +114,12 @@ namespace AdventOfCode.Yr2023
                     {
                         PathPoint newPathPoint = new(newPoint, 0, pt);
                         searchQueue.Enqueue(newPathPoint, newHeatLoss);
-                        if (newHeatLoss < minHeatLosses[newPoint])
-                        {
-                            minHeatLosses[newPoint] = newHeatLoss;
-                        }
                         visited[visit] = newHeatLoss;
                     }
                 }
             }
 
-            return minHeatLosses[target];
+            return finalHeatLoss;
         }
 
         public static int PartTwo(string[] input)
@@ -136,7 +128,6 @@ namespace AdventOfCode.Yr2023
             int height = input.Length;
             Point target = new(width - 1, height - 1);
 
-            Dictionary<Point, int> minHeatLosses = new();
             Dictionary<VisitEntry, int> visited = new();
             int[,] city = new int[width, height];
             for (int y = 0; y < height; y++)
@@ -145,16 +136,21 @@ namespace AdventOfCode.Yr2023
                 for (int x = 0; x < width; x++)
                 {
                     city[x, y] = line[x] - '0';
-                    Point thisPoint = new(x, y);
-                    minHeatLosses[thisPoint] = int.MaxValue;
                 }
             }
 
             PriorityQueue<PathPoint, int> searchQueue = new();
             searchQueue.Enqueue(new PathPoint(new Point(0, 0), 0, null), 0);
 
+            int finalHeatLoss = 0;
             while (searchQueue.TryDequeue(out PathPoint? pt, out int heatLoss))
             {
+                if (pt.Position == target)
+                {
+                    finalHeatLoss = heatLoss;
+                    break;
+                }
+
                 PathPoint? lastPoint = pt.Previous;
                 Point direction = new(pt.Position.X - lastPoint?.Position.X ?? 0, pt.Position.Y - lastPoint?.Position.Y ?? 0);
 
@@ -174,10 +170,6 @@ namespace AdventOfCode.Yr2023
                         {
                             PathPoint newPathPoint = new(newPoint, newStraight, pt);
                             searchQueue.Enqueue(newPathPoint, newHeatLoss);
-                            if (newHeatLoss < minHeatLosses[newPoint])
-                            {
-                                minHeatLosses[newPoint] = newHeatLoss;
-                            }
                             visited[visit] = newHeatLoss;
                         }
                     }
@@ -195,10 +187,6 @@ namespace AdventOfCode.Yr2023
                         {
                             PathPoint newPathPoint = new(newPoint, 0, pt);
                             searchQueue.Enqueue(newPathPoint, newHeatLoss);
-                            if (newHeatLoss < minHeatLosses[newPoint])
-                            {
-                                minHeatLosses[newPoint] = newHeatLoss;
-                            }
                             visited[visit] = newHeatLoss;
                         }
                     }
@@ -214,17 +202,13 @@ namespace AdventOfCode.Yr2023
                         {
                             PathPoint newPathPoint = new(newPoint, 0, pt);
                             searchQueue.Enqueue(newPathPoint, newHeatLoss);
-                            if (newHeatLoss < minHeatLosses[newPoint])
-                            {
-                                minHeatLosses[newPoint] = newHeatLoss;
-                            }
                             visited[visit] = newHeatLoss;
                         }
                     }
                 }
             }
 
-            return minHeatLosses[target];
+            return finalHeatLoss;
         }
     }
 }
