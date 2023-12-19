@@ -147,16 +147,6 @@
                 End = end;
             }
 
-            public bool Contains(long value)
-            {
-                return value >= Start && value < End;
-            }
-
-            public bool Overlaps(Range range)
-            {
-                return Start < range.End && range.Start < End;
-            }
-
             public Range UpperLimit(long limit)
             {
                 if (limit < Start)
