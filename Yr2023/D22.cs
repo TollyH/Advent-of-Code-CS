@@ -36,11 +36,21 @@ namespace AdventOfCode.Yr2023
                 {
                     continue;
                 }
-                if (!bricks.Select((b, index) => (b, index)).Any(b => b.index != i && b.b.Overlaps(newBrick)))
+                bool overlap = false;
+                for (int j = i + 1; j < bricks.Count; j++)
                 {
-                    bricks[i] = newBrick;
-                    moved.Add(brick.ID);
+                    if (bricks[j].Overlaps(newBrick))
+                    {
+                        overlap = true;
+                        break;
+                    }
                 }
+                if (overlap)
+                {
+                    continue;
+                }
+                bricks[i] = newBrick;
+                _ = moved.Add(brick.ID);
             }
             return moved;
         }
@@ -55,6 +65,7 @@ namespace AdventOfCode.Yr2023
                 int[] end = components[1].Split(',').Select(int.Parse).ToArray();
                 bricks.Add(new Brick(i, new Vector3(start[0], start[1], start[2]), new Vector3(end[0], end[1], end[2]) + Vector3.One));
             }
+            bricks = bricks.OrderBy(b => -Math.Min(b.Start.Z, b.End.Z - 1)).ToList();
 
             while (MoveBricks(bricks).Count != 0) { }
 
@@ -82,6 +93,7 @@ namespace AdventOfCode.Yr2023
                 int[] end = components[1].Split(',').Select(int.Parse).ToArray();
                 bricks.Add(new Brick(i, new Vector3(start[0], start[1], start[2]), new Vector3(end[0], end[1], end[2]) + Vector3.One));
             }
+            bricks = bricks.OrderBy(b => -Math.Min(b.Start.Z, b.End.Z - 1)).ToList();
 
             while (MoveBricks(bricks).Count != 0) { }
 
