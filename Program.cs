@@ -4,7 +4,7 @@ namespace AdventOfCode
 {
     public static class Program
     {
-        public static string YearToExecute = "2023";
+        public static string YearToExecute = "2024";
 
         public static void Main(string[] args)
         {
